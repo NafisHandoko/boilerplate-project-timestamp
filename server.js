@@ -28,7 +28,7 @@ app.get('/api', function(req, res){
   const now = new Date()
   res.json({
     unix: now.getTime(),
-    utc: now.toString()
+    utc: now.toUTCString()
   })
 })
 
@@ -42,14 +42,9 @@ app.get('/api/:date', function(req, res){
   if(date.toString()==='Invalid Date'){
     res.json({error: date.toString()})
   }else{
-    const utcArr = date.toString().split(' ')
-    const utcDay = utcArr[0]
-    const utcDate = utcArr[2]
-    const utcMonth = utcArr[1]
-    const utcYear = utcArr[3]
     res.json({
       unix: parseInt(date.getTime()),
-      utc: `${utcDay}, ${utcDate} ${utcMonth} ${utcYear} 00:00:00 GMT`
+      utc: date.toUTCString()
     })
   }
 })
